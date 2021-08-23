@@ -1,0 +1,89 @@
+$color: #d42026;
+$textHeader: #fff;
+@use "../../styles/breakpoints";
+
+.container {
+  margin-top: 34px;
+  width: 100%;
+  .header {
+    display: flex;
+    .td {
+      padding: 10px;
+      background-color: $color;
+      color: $textHeader;
+      font-size: 21px;
+    }
+    .name {
+      @include breakpoints.media-sm {
+        width: 100%;
+      }
+      @extend .td;
+      width: 25%;
+    }
+    .description {
+      @include breakpoints.media-sm {
+        display: none;
+      }
+      @extend .td;
+      margin-left: 10px;
+      width: 75%;
+    }
+  }
+
+  .row {
+    display: flex;
+    border-bottom: 2px solid rgba($color, 0.1);
+    .td {
+      padding: 10px;
+      max-height: 105px;
+      text-align: justify;
+      font-size: 21px;
+      color: #4e4e4e;
+    }
+    .name {
+      @include breakpoints.media-sm {
+        width: 100%;
+      }
+      @extend .td;
+      width: 25%;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      div {
+        width: 58px;
+        height: 58px;
+        overflow: hidden;
+        border-radius: 50%;
+        img {
+          width: 100%;
+        }
+      }
+      span {
+        width: calc(100% - 82px);
+        margin-left: 25px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .description {
+      @include breakpoints.media-sm {
+        display: none;
+      }
+      @extend .td;
+      width: 75%;
+      margin-left: 10px;
+      p {
+        height: 100%;
+        line-height: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+      }
+    }
+  }
+
+  .row:hover {
+    background-color: rgba($color, 0.1);
+  }
+}

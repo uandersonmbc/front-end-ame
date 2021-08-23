@@ -1,0 +1,37 @@
+@use './breakpoints';
+
+.container {
+  margin: 20px 42px;
+  @include breakpoints.media-sm {
+    margin: 20px auto;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 27px;
+    @include breakpoints.media-sm {
+      font-size: 16px;
+      h3:nth-child(2) {
+        display: none;
+      }
+    }
+  }
+
+  .searchForm {
+    margin-top: 34px;
+    p {
+      font-size: 16px;
+    }
+
+    input {
+      height: 31px;
+      width: 400px;
+      border-radius: 5px;
+
+      @include breakpoints.media-sm {
+        width: 100%;
+      }
+    }
+  }
+}
