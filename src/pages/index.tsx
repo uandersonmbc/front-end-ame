@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "services/api";
 import styles from "styles/home.module.scss";
 import { Character } from "types/characters";
-import { Items } from "components";
+import { Items, Pagination } from "components";
 export default function Home(): JSX.Element {
   const [characters, setCharacters] = useState<Array<Character>>([]);
   async function fetchCharacters(params: any = {}) {
@@ -37,6 +37,7 @@ export default function Home(): JSX.Element {
           <input type="text" />
         </div>
         <Items characters={characters} />
+        <Pagination />
       </main>
     </div>
   );
