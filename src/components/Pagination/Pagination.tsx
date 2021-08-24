@@ -16,8 +16,16 @@ export default function Pagination({
       const newPages = [];
       newPages.push({ page: 1, limit: 0 });
       const totalPages = Math.ceil(count / totalPerPage);
-      newPages.push({ page: totalPages, limit: totalPages * totalPerPage });
-      console.log(totalPages, page);
+      const limit = totalPages - 2 > 4 ? page + 4 : page + totalPages - 2;
+      console.log(limit);
+
+      // for (let i = page; i < limit; i++) {
+      // newPages.push({ page: i, limit: i * totalPerPage });
+      // }
+
+      if (totalPages > 1) {
+        newPages.push({ page: totalPages, limit: totalPages * totalPerPage });
+      }
       setPages(newPages);
     },
     [count, totalPerPage]
@@ -29,7 +37,7 @@ export default function Pagination({
 
   return (
     <div className={styles.container}>
-      <div className={styles.triangleLeft}></div>
+      <div className={styles.triangleLeft} onClick={() => {}} />
       {pages.map((item: any) => {
         return (
           <div
@@ -37,13 +45,13 @@ export default function Pagination({
               activePage === item.page && styles.itemActive
             }`}
             key={item.page.toString()}
-            onClick={() => handlePageChange(item.page)}
+            // onClick={() => handlePageChange(item.page)}
           >
             {item.page}
           </div>
         );
       })}
-      <div className={styles.triangleRight}></div>
+      <div className={styles.triangleRight} onClick={() => {}} />
     </div>
   );
 }

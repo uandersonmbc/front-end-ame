@@ -17,7 +17,7 @@ export default function Items({ characters }: Item) {
               <div className={styles.name}>
                 <div>
                   <img
-                    src={item.attributes.image.original}
+                    src={item.attributes.image?.original}
                     alt={item.attributes.name}
                   />
                 </div>

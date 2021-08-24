@@ -7,15 +7,27 @@ import { Character } from "types/characters";
 import { Items, Pagination } from "components";
 export default function Home(): JSX.Element {
   const [characters, setCharacters] = useState<Array<Character>>([]);
+  const [count, setCount] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
+  const [name, setName] = useState<string>("");
+
   async function fetchCharacters(params: any = {}) {
     try {
       const paramsToString = new URLSearchParams(params).toString();
       const { data } = await axios.get(`/api/characters?${paramsToString}`);
       setCharacters(data.data);
+      setCount(data.meta.count);
     } catch (error) {
       console.log(error);
     }
   }
+
+  function onSubmit(event: any) {
+    if (event.key === "Enter") {
+      name ? fetchCharacters({ "filter[name]": name }) : fetchCharacters();
+    }
+  }
+
   useEffect(() => {
     fetchCharacters();
   }, []);
@@ -34,10 +46,14 @@ export default function Home(): JSX.Element {
 
         <div className={styles.searchForm}>
           <p className={styles.textLabel}>Nome do Personagem</p>
-          <input type="text" />
+          <input
+            type="text"
+            onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => onSubmit(e)}
+          />
         </div>
         <Items characters={characters} />
-        <Pagination count={50} activePage={1} totalPerPage={10} />
+        <Pagination count={count} activePage={page} totalPerPage={10} />
       </main>
     </div>
   );

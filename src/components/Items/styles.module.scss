@@ -1,6 +1,5 @@
-$color: #d42026;
-$textHeader: #fff;
-@use "../../styles/breakpoints";
+@use './../../styles/breakpoints';
+@use './../../styles/var' as var;
 
 .container {
   margin-top: 34px;
@@ -9,8 +8,8 @@ $textHeader: #fff;
     display: flex;
     .td {
       padding: 10px;
-      background-color: $color;
-      color: $textHeader;
+      background-color: var.$primary-color;
+      color: var.$text-color-secondary;
       font-size: 21px;
     }
     .name {
@@ -32,7 +31,7 @@ $textHeader: #fff;
 
   .row {
     display: flex;
-    border-bottom: 2px solid rgba($color, 0.1);
+    border-bottom: 2px solid rgba(var.$primary-color, 0.1);
     .td {
       padding: 10px;
       max-height: 105px;
@@ -84,6 +83,6 @@ $textHeader: #fff;
   }
 
   .row:hover {
-    background-color: rgba($color, 0.1);
+    background-color: rgba(var.$primary-color, 0.1);
   }
 }
