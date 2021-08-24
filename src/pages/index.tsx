@@ -28,8 +28,8 @@ export default function Home(): JSX.Element {
 
       <main className={styles.container}>
         <div className={styles.header}>
-          <h3>Busca Kitsu Teste Front-End</h3>
-          <h3>Uanderson Nunes</h3>
+          <span>Busca Kitsu Teste Front-End</span>
+          <span>Uanderson Nunes</span>
         </div>
 
         <div className={styles.searchForm}>
@@ -37,7 +37,7 @@ export default function Home(): JSX.Element {
           <input type="text" />
         </div>
         <Items characters={characters} />
-        <Pagination />
+        <Pagination count={50} activePage={1} totalPerPage={10} />
       </main>
     </div>
   );

@@ -1,17 +1,45 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+
+import { PaginationProps } from "./types";
 
 import styles from "./styles.module.scss";
 
-export default function Pagination(props: any) {
-  const [active, setActive] = useState(1);
+export default function Pagination({
+  activePage,
+  count,
+  totalPerPage,
+}: PaginationProps) {
+  const [pages, setPages] = useState([{ page: 1, limit: 0 }]);
+
+  const handlePageChange = useCallback(
+    (page: number) => {
+      const newPages = [];
+      newPages.push({ page: 1, limit: 0 });
+      const totalPages = Math.ceil(count / totalPerPage);
+      newPages.push({ page: totalPages, limit: totalPages * totalPerPage });
+      console.log(totalPages, page);
+      setPages(newPages);
+    },
+    [count, totalPerPage]
+  );
+
+  useEffect(() => {
+    handlePageChange(activePage);
+  }, [handlePageChange, activePage]);
 
   return (
     <div className={styles.container}>
       <div className={styles.triangleLeft}></div>
-      {[1, 2, 3, 4].map((item: any) => {
+      {pages.map((item: any) => {
         return (
-          <div className={styles.item} key={item}>
-            {item}
+          <div
+            className={`${styles.item} ${
+              activePage === item.page && styles.itemActive
+            }`}
+            key={item.page.toString()}
+            onClick={() => handlePageChange(item.page)}
+          >
+            {item.page}
           </div>
         );
       })}
