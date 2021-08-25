@@ -1,17 +1,20 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import axios from "services/api";
 import styles from "styles/home.module.scss";
 import { Character } from "types/characters";
 import { Items, Pagination } from "components";
+import LoadingOverlay from "react-loading-overlay";
+
 export default function Home(): JSX.Element {
   const [characters, setCharacters] = useState<Array<Character>>([]);
   const [count, setCount] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
   const [name, setName] = useState<string>("");
+  const [loaded, setLoaded] = useState(true);
 
-  async function fetchCharacters(params: any = {}) {
+  const fetchCharacters = useCallback(async (params: any = {}) => {
     try {
       const paramsToString = new URLSearchParams(params).toString();
       const { data } = await axios.get(`/api/characters?${paramsToString}`);
@@ -20,17 +23,32 @@ export default function Home(): JSX.Element {
     } catch (error) {
       console.log(error);
     }
-  }
+  }, []);
+
+  const onChangePage = useCallback(
+    (page: any) => {
+      setPage(page.page);
+      name
+        ? fetchCharacters({
+            "filter[name]": name,
+            "page[limit]": 10,
+            "page[offset]": page.limit,
+          })
+        : fetchCharacters({ "page[limit]": 10, "page[offset]": page.limit });
+    },
+    [setPage, fetchCharacters, name]
+  );
 
   function onSubmit(event: any) {
     if (event.key === "Enter") {
+      setPage(1);
       name ? fetchCharacters({ "filter[name]": name }) : fetchCharacters();
     }
   }
 
   useEffect(() => {
     fetchCharacters();
-  }, []);
+  }, [fetchCharacters]);
 
   return (
     <div>
@@ -49,11 +67,16 @@ export default function Home(): JSX.Element {
           <input
             type="text"
             onChange={(e) => setName(e.target.value)}
-            onKeyDown={(e) => onSubmit(e)}
+            onKeyDown={onSubmit}
           />
         </div>
         <Items characters={characters} />
-        <Pagination count={count} activePage={page} totalPerPage={10} />
+        <Pagination
+          count={count}
+          activePage={page}
+          totalPerPage={10}
+          onChange={onChangePage}
+        />
       </main>
     </div>
   );

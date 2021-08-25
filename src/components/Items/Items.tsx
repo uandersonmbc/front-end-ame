@@ -2,8 +2,9 @@ import ReactHtmlParser from "react-html-parser";
 import Link from "next/link";
 import { Item } from "./types";
 import styles from "./styles.module.scss";
+import { memo } from "react";
 
-export default function Items({ characters }: Item) {
+export default memo(function Items({ characters }: Item) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -32,4 +33,4 @@ export default function Items({ characters }: Item) {
       ))}
     </div>
   );
-}
+});

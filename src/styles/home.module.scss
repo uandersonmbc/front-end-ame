@@ -2,9 +2,11 @@
 
 .container {
   margin: 20px 42px;
+
   @include breakpoints.media-sm {
     margin: 20px auto;
   }
+
   .header {
     display: flex;
     justify-content: space-between;

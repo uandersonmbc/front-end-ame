@@ -19,6 +19,7 @@
   "devDependencies": {
     "@types/react": "17.0.19",
     "@types/react-html-parser": "^2.0.2",
+    "@types/react-loading-overlay": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
     "eslint": "7.32.0",

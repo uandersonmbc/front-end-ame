@@ -1,57 +1,68 @@
-import { useCallback, useEffect, useState } from "react";
-
-import { PaginationProps } from "./types";
+import { usePagination } from "hooks/usePagination";
+import { PaginationProps, PaginationState } from "./types";
 
 import styles from "./styles.module.scss";
+import { memo, useEffect, useState } from "react";
 
-export default function Pagination({
+export default memo(function Pagination({
   activePage,
   count,
   totalPerPage,
+  onChange,
 }: PaginationProps) {
-  const [pages, setPages] = useState([{ page: 1, limit: 0 }]);
+  const [pages, setPages] = useState<Array<PaginationState>>([]);
 
-  const handlePageChange = useCallback(
-    (page: number) => {
-      const newPages = [];
-      newPages.push({ page: 1, limit: 0 });
-      const totalPages = Math.ceil(count / totalPerPage);
-      const limit = totalPages - 2 > 4 ? page + 4 : page + totalPages - 2;
-      console.log(limit);
-
-      // for (let i = page; i < limit; i++) {
-      // newPages.push({ page: i, limit: i * totalPerPage });
-      // }
-
-      if (totalPages > 1) {
-        newPages.push({ page: totalPages, limit: totalPages * totalPerPage });
-      }
-      setPages(newPages);
-    },
-    [count, totalPerPage]
-  );
+  const paginationRange = usePagination({
+    currentPage: activePage,
+    totalCount: count,
+    siblingCount: 1,
+    pageSize: totalPerPage,
+  });
 
   useEffect(() => {
-    handlePageChange(activePage);
-  }, [handlePageChange, activePage]);
+    function updatePages() {
+      const newPages: Array<PaginationState> = [];
+
+      paginationRange?.forEach((page, index) => {
+        newPages.push({
+          page,
+          key: page.toString() + index,
+          limit: typeof page === "number" ? (page - 1) * totalPerPage : 0,
+        });
+      });
+
+      setPages(newPages);
+    }
+    updatePages();
+  }, [paginationRange, activePage, count, totalPerPage]);
 
   return (
     <div className={styles.container}>
-      <div className={styles.triangleLeft} onClick={() => {}} />
-      {pages.map((item: any) => {
+      <div
+        className={styles.triangleLeft}
+        onClick={() => {
+          onChange(pages[0]);
+        }}
+      />
+      {pages.map((item) => {
         return (
           <div
             className={`${styles.item} ${
               activePage === item.page && styles.itemActive
             }`}
-            key={item.page.toString()}
-            // onClick={() => handlePageChange(item.page)}
+            key={item.key}
+            onClick={() => typeof item.page === "number" && onChange(item)}
           >
             {item.page}
           </div>
         );
       })}
-      <div className={styles.triangleRight} onClick={() => {}} />
+      <div
+        className={styles.triangleRight}
+        onClick={() => {
+          onChange(pages[6]);
+        }}
+      />
     </div>
   );
-}
+});
