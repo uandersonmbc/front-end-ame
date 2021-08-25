@@ -46,15 +46,16 @@ export default memo(function Pagination({
       />
       {pages.map((item) => {
         return (
-          <div
+          <button
+            disabled={typeof item.page !== "number"}
             className={`${styles.item} ${
               activePage === item.page && styles.itemActive
             }`}
             key={item.key}
-            onClick={() => typeof item.page === "number" && onChange(item)}
+            onClick={() => onChange(item)}
           >
             {item.page}
-          </div>
+          </button>
         );
       })}
       <div

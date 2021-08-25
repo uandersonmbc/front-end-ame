@@ -12,7 +12,7 @@ export default memo(function Items({ characters }: Item) {
         <div className={styles.description}>Descrição</div>
       </div>
       {characters.map((item) => (
-        <Link href="/characters" key={item.id}>
+        <Link href={`/character/${item.id}`} key={item.id}>
           <a>
             <div className={styles.row}>
               <div className={styles.name}>

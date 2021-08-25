@@ -5,23 +5,25 @@ import axios from "services/api";
 import styles from "styles/home.module.scss";
 import { Character } from "types/characters";
 import { Items, Pagination } from "components";
-import LoadingOverlay from "react-loading-overlay";
 
 export default function Home(): JSX.Element {
   const [characters, setCharacters] = useState<Array<Character>>([]);
   const [count, setCount] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
   const [name, setName] = useState<string>("");
-  const [loaded, setLoaded] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const fetchCharacters = useCallback(async (params: any = {}) => {
     try {
+      setLoading(true);
       const paramsToString = new URLSearchParams(params).toString();
       const { data } = await axios.get(`/api/characters?${paramsToString}`);
       setCharacters(data.data);
       setCount(data.meta.count);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
