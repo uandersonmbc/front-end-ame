@@ -1,36 +1,39 @@
 @use './breakpoints';
+@use './var' as var;
 
 .container {
   margin: 20px 42px;
+  @include breakpoints.media-sm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   @include breakpoints.media-sm {
     margin: 20px auto;
   }
-
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 27px;
+  .headers {
     @include breakpoints.media-sm {
-      font-size: 16px;
-      h3:nth-child(2) {
-        display: none;
-      }
+      width: 80%;
     }
   }
-
   .searchForm {
     margin-top: 34px;
+    @include breakpoints.media-sm {
+      margin-top: 12px;
+    }
     p {
       font-size: 16px;
-      color: #999;
+      color: var.$primary-color;
+      font-weight: 500;
     }
 
     input {
       height: 31px;
       width: 400px;
       border-radius: 5px;
+      border: 1px solid #A5A5A5;
+      padding: 0 10px;
 
       @include breakpoints.media-sm {
         width: 100%;

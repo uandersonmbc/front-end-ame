@@ -4,6 +4,10 @@ export interface Data {
   links: Links;
 }
 
+export interface CharacterData {
+  data: Character;
+}
+
 export interface Meta {
   count: number;
 }

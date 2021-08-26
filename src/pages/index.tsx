@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "services/api";
 import styles from "styles/home.module.scss";
 import { Character } from "types/characters";
-import { Items, Pagination } from "components";
+import { Items, Pagination, Header } from "components";
 
 export default function Home(): JSX.Element {
   const [characters, setCharacters] = useState<Array<Character>>([]);
@@ -59,18 +59,17 @@ export default function Home(): JSX.Element {
       </Head>
 
       <main className={styles.container}>
-        <div className={styles.header}>
-          <span>Busca Kitsu Teste Front-End</span>
-          <span>Uanderson Nunes</span>
-        </div>
+        <div className={styles.headers}>
+          <Header />
 
-        <div className={styles.searchForm}>
-          <p className={styles.textLabel}>Nome do Personagem</p>
-          <input
-            type="text"
-            onChange={(e) => setName(e.target.value)}
-            onKeyDown={onSubmit}
-          />
+          <div className={styles.searchForm}>
+            <p className={styles.textLabel}>Nome do Personagem</p>
+            <input
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+              onKeyDown={onSubmit}
+            />
+          </div>
         </div>
         <Items characters={characters} />
         <Pagination
