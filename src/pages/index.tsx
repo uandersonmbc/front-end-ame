@@ -5,6 +5,7 @@ import axios from "services/api";
 import styles from "styles/home.module.scss";
 import { Character } from "types/characters";
 import { Items, Pagination, Header } from "components";
+import LoadingOverlay from "react-loading-overlay";
 
 export default function Home(): JSX.Element {
   const [characters, setCharacters] = useState<Array<Character>>([]);
@@ -53,32 +54,39 @@ export default function Home(): JSX.Element {
   }, [fetchCharacters]);
 
   return (
-    <div>
-      <Head>
-        <title>Busca Kitsu</title>
-      </Head>
+    <LoadingOverlay
+      active={loading}
+      spinner
+      text="Buscando os personagens"
+      className={styles.loading}
+    >
+      <div>
+        <Head>
+          <title>Busca Kitsu</title>
+        </Head>
 
-      <main className={styles.container}>
-        <div className={styles.headers}>
-          <Header />
+        <main className={styles.container}>
+          <div className={styles.headers}>
+            <Header />
 
-          <div className={styles.searchForm}>
-            <p className={styles.textLabel}>Nome do Personagem</p>
-            <input
-              type="text"
-              onChange={(e) => setName(e.target.value)}
-              onKeyDown={onSubmit}
-            />
+            <div className={styles.searchForm}>
+              <p className={styles.textLabel}>Nome do Personagem</p>
+              <input
+                type="text"
+                onChange={(e) => setName(e.target.value)}
+                onKeyDown={onSubmit}
+              />
+            </div>
           </div>
-        </div>
-        <Items characters={characters} />
-        <Pagination
-          count={count}
-          activePage={page}
-          totalPerPage={10}
-          onChange={onChangePage}
-        />
-      </main>
-    </div>
+          <Items characters={characters} />
+          <Pagination
+            count={count}
+            activePage={page}
+            totalPerPage={10}
+            onChange={onChangePage}
+          />
+        </main>
+      </div>
+    </LoadingOverlay>
   );
 }

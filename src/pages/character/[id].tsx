@@ -2,9 +2,11 @@ import Head from "next/head";
 import { GetStaticProps, GetStaticPropsContext, GetStaticPaths } from "next";
 import { getCharacter } from "services/characters";
 
+import styles from "styles/character.module.scss";
+
 import { Header } from "components";
 
-export default function Character(props): JSX.Element {
+export default function Character(props: any): JSX.Element {
   console.log(props);
   return (
     <>
@@ -35,7 +37,7 @@ export default function Character(props): JSX.Element {
         <meta property="twitter:title" content={movie.title} />
         <meta property="twitter:description" content={movie.overview} /> */}
       </Head>
-      <div>
+      <div className={styles.container}>
         <Header />
       </div>
     </>

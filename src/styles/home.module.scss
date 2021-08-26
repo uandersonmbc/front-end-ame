@@ -1,8 +1,13 @@
 @use './breakpoints';
 @use './var' as var;
 
+.loading {
+  width: 100%;
+  min-height: 100vh;
+}
+
 .container {
-  margin: 20px 42px;
+  padding: 20px 42px;
   @include breakpoints.media-sm {
     display: flex;
     flex-direction: column;
