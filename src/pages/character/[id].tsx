@@ -7,7 +7,7 @@ import styles from "styles/character.module.scss";
 import { Header } from "components";
 
 export default function Character(props: any): JSX.Element {
-  console.log(props);
+  // console.log(props);
   return (
     <>
       <Head>
@@ -55,13 +55,11 @@ export const getStaticProps: GetStaticProps = async ({
   params,
 }: GetStaticPropsContext) => {
   const id = params?.id?.toString();
-  console.log(id);
   if (id) {
     const { data } = await getCharacter(id);
     try {
       return {
         props: {
-          id: id,
           character: data.data,
         },
         revalidate: 3600,
