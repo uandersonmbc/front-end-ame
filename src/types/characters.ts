@@ -1,7 +1,12 @@
-export interface Data {
+import { LinksPage, Links } from "./generics";
+export interface CharacterDataList {
   data: Array<Character>;
   meta: Meta;
-  links: Links;
+  links: LinksPage;
+}
+
+export interface MapSchema {
+  [key: string]: any;
 }
 
 export interface CharacterData {
@@ -16,36 +21,36 @@ export interface Character {
   id: number;
   type: string;
   links: Links;
-  attributes: Attributes;
-  relationships: Relationships;
+  attributes: CharacterAttributes;
+  relationships: CharacterRelationships;
 }
 
-export interface Links {
-  self?: string;
-  first?: string;
-  prev?: string;
-  next?: string;
-  last?: string;
-  related?: string;
-}
-
-export interface Attributes {
+export interface CharacterAttributes {
   createdAt: string;
   updatedAt: string;
   slug: string;
   name: string;
+  names: Object;
   malId: string;
   description: string;
+  otherNames: string[];
+  canonicalName: string;
   image: {
     original: string;
   };
 }
 
-export interface Relationships {
+export interface CharacterRelationships {
   primaryMedia: {
     links: Links;
   };
   castings: {
+    links: Links;
+  };
+  mediaCharacters: {
+    links: Links;
+  };
+  quotes: {
     links: Links;
   };
 }

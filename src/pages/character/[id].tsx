@@ -6,36 +6,56 @@ import styles from "styles/character.module.scss";
 
 import { Header } from "components";
 
-export default function Character(props: any): JSX.Element {
-  // console.log(props);
+import { Character as Doideira } from "types/characters";
+
+interface CharacterProps {
+  character: Doideira;
+}
+
+export default function Character({ character }: CharacterProps): JSX.Element {
   return (
     <>
       <Head>
-        <title>{"Test"}</title>
+        <title>{character.attributes.canonicalName}</title>
 
-        <meta name="description" content={""} />
-        <meta name="keywords" content={""} />
-        {/*
-        <meta property="og:image" content={cdn + "/w500" + movie.poster_path} />
+        <meta name="description" content={character.attributes.description} />
         <meta
-          property="og:image"
-          content={cdn + "/w780" + movie.backdrop_path}
+          name="keywords"
+          content={character.attributes.otherNames.join(",")}
         />
+
+        <meta property="og:image" content={""} />
+        <meta property="og:image" content={""} />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={movie.title} />
-        <meta property="og:description" content={movie.overview} />
-        <meta property="og:site_name" content={movie.title} />
-
         <meta
-          property="twitter:image"
-          content={cdn + "/w500" + movie.backdrop_path}
+          property="og:title"
+          content={character.attributes.canonicalName}
         />
+        <meta
+          property="og:description"
+          content={character.attributes.description}
+        />
+        <meta
+          property="og:site_name"
+          content={character.attributes.canonicalName}
+        />
+
+        <meta property="twitter:image" content={""} />
         <meta property="twitter:image:width" content="780" />
         <meta property="twitter:image:height" content="439" />
         <meta property="twitter:card" content="summary" />
-        <meta property="twitter:creator" content={movie.title} />
-        <meta property="twitter:title" content={movie.title} />
-        <meta property="twitter:description" content={movie.overview} /> */}
+        <meta
+          property="twitter:creator"
+          content={character.attributes.canonicalName}
+        />
+        <meta
+          property="twitter:title"
+          content={character.attributes.canonicalName}
+        />
+        <meta
+          property="twitter:description"
+          content={character.attributes.description}
+        />
       </Head>
       <div className={styles.container}>
         <Header />

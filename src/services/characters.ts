@@ -1,9 +1,13 @@
 import { AxiosResponse } from "axios";
 import axios from "./api";
 
-import { Data, CharacterData } from "types/characters";
+import { CharacterDataList, CharacterData } from "types/characters";
+import { MediaData } from "types/media";
+import { RelationshipsData } from "types/generics";
 
-export function getCharacters(params: any = {}): Promise<AxiosResponse<Data>> {
+export function getCharacters(
+  params: any = {}
+): Promise<AxiosResponse<CharacterDataList>> {
   const paramsToString = new URLSearchParams(params).toString();
   return axios.get(`/characters?${paramsToString}`);
 }
@@ -14,10 +18,12 @@ export function getCharacter(
   return axios.get(`/characters/${id}`);
 }
 
-export function getMediaCharacters(id: string): Promise<AxiosResponse<Data>> {
-  return axios.get(`characters/${id}/media-characters"`);
+export function getMediaCharacters(
+  id: string
+): Promise<AxiosResponse<RelationshipsData>> {
+  return axios.get(`/characters/${id}/relationships/media-characters`);
 }
 
-export function getMedia(id: string): Promise<AxiosResponse<Data>> {
+export function getMedia(id: number): Promise<AxiosResponse<MediaData>> {
   return axios.get(`/media-characters/${id}/media`);
 }
