@@ -2,17 +2,20 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getMedia, getMediaCharacters } from "services/characters";
 
 type Data = {
-  id: number;
+  id: string;
   name: string;
+  posterImage: Object;
+  averageRating: string;
+  type: string;
 };
 
 export default async function characters(
   req: NextApiRequest,
-  res: NextApiResponse<Array<Data> | {}>
+  res: NextApiResponse<Array<Data> | []>
 ) {
   try {
     const id = req.query.id.toString();
-    const mediaList = [];
+    const mediaList: Array<Data> = [];
 
     const { data } = await getMediaCharacters(id);
 
@@ -20,13 +23,16 @@ export default async function characters(
       const { data } = await getMedia(item.id);
       mediaList.push({
         id: data.data.id,
+        type: data.data.type,
         name: data.data.attributes.canonicalTitle,
+        posterImage: data.data.attributes.posterImage,
+        averageRating: data.data.attributes.averageRating,
       });
     }
 
     res.status(200).json(mediaList);
   } catch (error) {
     console.log(error);
-    res.status(400).json({});
+    res.status(400).json([]);
   }
 }

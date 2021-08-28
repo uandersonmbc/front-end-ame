@@ -36,18 +36,35 @@ export default memo(function Pagination({
     updatePages();
   }, [paginationRange, activePage, count, totalPerPage]);
 
+  function onPrevClick() {
+    const prevPage = activePage - 1;
+    if (prevPage > 0) {
+      onChange({
+        page: prevPage,
+        key: prevPage.toString(),
+        limit: prevPage * totalPerPage,
+      });
+    }
+  }
+
+  function onNextClick() {
+    const nextPage = activePage + 1;
+    if (nextPage <= count) {
+      onChange({
+        page: nextPage,
+        key: nextPage.toString(),
+        limit: nextPage * totalPerPage,
+      });
+    }
+  }
+
   return (
     <div className={styles.container}>
-      <div
-        className={styles.triangleLeft}
-        onClick={() => {
-          onChange(pages[0]);
-        }}
-      />
+      <div className={styles.triangleLeft} onClick={onPrevClick} />
       {pages.map((item) => {
         return (
           <button
-            disabled={typeof item.page !== "number"}
+            disabled={typeof item.page !== "number" || activePage === item.page}
             className={`${styles.item} ${
               activePage === item.page && styles.itemActive
             }`}
@@ -58,12 +75,7 @@ export default memo(function Pagination({
           </button>
         );
       })}
-      <div
-        className={styles.triangleRight}
-        onClick={() => {
-          onChange(pages[6]);
-        }}
-      />
+      <div className={styles.triangleRight} onClick={onNextClick} />
     </div>
   );
 });

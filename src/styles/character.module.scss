@@ -17,4 +17,37 @@
   @include breakpoints.media-sm {
     margin: 20px auto;
   }
+
+  .content {
+    display: flex;
+    margin-top: 20px;
+    @include breakpoints.media-sm {
+      display: block;
+      width: 100%;
+    }
+
+    .image {
+      width: 255px;
+      @include breakpoints.media-sm {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    .info {
+      width: 100%;
+      text-align: justify;
+      padding: 0 20px;
+      @include breakpoints.media-sm {
+        padding: 0;
+        width: 100%;
+      }
+    }
+
+  }
+
 }
