@@ -24,8 +24,10 @@ export default function Character({ character }: CharacterProps): JSX.Element {
           content={character.attributes.otherNames.join(",")}
         />
 
-        <meta property="og:image" content={""} />
-        <meta property="og:image" content={""} />
+        <meta
+          property="og:image"
+          content={character.attributes.image.original}
+        />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
@@ -40,7 +42,10 @@ export default function Character({ character }: CharacterProps): JSX.Element {
           content={character.attributes.canonicalName}
         />
 
-        <meta property="twitter:image" content={""} />
+        <meta
+          property="twitter:image"
+          content={character.attributes.image.original}
+        />
         <meta property="twitter:image:width" content="780" />
         <meta property="twitter:image:height" content="439" />
         <meta property="twitter:card" content="summary" />
