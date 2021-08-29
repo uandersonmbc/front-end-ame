@@ -2,19 +2,37 @@ import Head from "next/head";
 import { GetStaticProps, GetStaticPropsContext, GetStaticPaths } from "next";
 import ReactHtmlParser from "react-html-parser";
 
+import axios from "services/api";
 import { getCharacter } from "services/characters";
 
 import styles from "styles/character.module.scss";
 
-import { Header } from "components";
+import { Header, Media } from "components";
 
-import { Character as Doideira } from "types/characters";
+import { Character as C, MediaData } from "types/characters";
+import { useEffect, useState } from "react";
+import { AxiosResponse } from "axios";
 
 interface CharacterProps {
-  character: Doideira;
+  character: C;
 }
 
 export default function Character({ character }: CharacterProps): JSX.Element {
+  const [media, setMedia] = useState<Array<MediaData>>([]);
+  useEffect(() => {
+    async function getMedia() {
+      try {
+        const { data }: AxiosResponse<Array<MediaData>> = await axios.get(
+          `/api/characters/${character.id}`
+        );
+        setMedia(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getMedia();
+  }, [character]);
+
   return (
     <>
       <Head>
@@ -66,6 +84,7 @@ export default function Character({ character }: CharacterProps): JSX.Element {
       </Head>
       <div className={styles.container}>
         <Header />
+
         <div className={styles.content}>
           <div className={styles.image}>
             <img
@@ -77,6 +96,12 @@ export default function Character({ character }: CharacterProps): JSX.Element {
             <h1>{character.attributes.canonicalName}</h1>
             <p>{ReactHtmlParser(character.attributes.description)}</p>
           </div>
+        </div>
+
+        <div className={styles.media}>
+          {media.map((item) => (
+            <Media key={item.id} data={item} />
+          ))}
         </div>
       </div>
     </>

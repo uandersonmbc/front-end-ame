@@ -1,21 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getMedia, getMediaCharacters } from "services/characters";
-
-type Data = {
-  id: string;
-  name: string;
-  posterImage: Object;
-  averageRating: string;
-  type: string;
-};
+import { MediaData } from "types/characters";
 
 export default async function characters(
   req: NextApiRequest,
-  res: NextApiResponse<Array<Data> | []>
+  res: NextApiResponse<Array<MediaData> | []>
 ) {
   try {
     const id = req.query.id.toString();
-    const mediaList: Array<Data> = [];
+    const mediaList: Array<MediaData> = [];
 
     const { data } = await getMediaCharacters(id);
 

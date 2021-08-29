@@ -1,12 +1,16 @@
-import { LinksPage, Links } from "./generics";
+import { LinksPage, Links, Image } from "./generics";
 export interface CharacterDataList {
   data: Array<Character>;
   meta: Meta;
   links: LinksPage;
 }
 
-export interface MapSchema {
-  [key: string]: any;
+export interface MediaData {
+  id: string;
+  type: string;
+  name: string;
+  posterImage: Image;
+  averageRating: string;
 }
 
 export interface CharacterData {
