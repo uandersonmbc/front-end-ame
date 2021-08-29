@@ -3,7 +3,7 @@ import axios from "./api";
 
 import { CharacterDataList, CharacterData } from "types/characters";
 import { MediaData } from "types/media";
-import { RelationshipsData } from "types/generics";
+import { RelationshipsData } from "types/media";
 
 export function getCharacters(
   params: any = {}
@@ -19,9 +19,16 @@ export function getCharacter(
 }
 
 export function getMediaCharacters(
-  id: string
+  id: string,
+  offset: number = 0
 ): Promise<AxiosResponse<RelationshipsData>> {
-  return axios.get(`/characters/${id}/relationships/media-characters`);
+  return axios.get(`/characters/${id}/media-characters`, {
+    params: {
+      include: "media",
+      "page[limit]": 20,
+      "page[offset]": offset,
+    },
+  });
 }
 
 export function getMedia(id: number): Promise<AxiosResponse<MediaData>> {

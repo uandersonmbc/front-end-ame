@@ -1,7 +1,23 @@
-import { Links, Image } from "./generics";
+import { Links, Image, LinksPage } from "./generics";
 
+export interface RelationshipsData {
+  data: Array<MediaCharactersData>;
+  included: Array<Media>;
+  meta: {
+    count: number;
+  };
+  links: LinksPage;
+}
 export interface MediaData {
   data: Media;
+}
+
+export interface MediaCharactersData {
+  id: string;
+  type: string;
+  links: Links;
+  attributes: MediaCharactersAttributes;
+  relationships: MediaCharactersRelationships;
 }
 
 export interface Media {
@@ -10,6 +26,18 @@ export interface Media {
   link: Links;
   attributes: MediaAttributes;
   relationships: MediaRelationships;
+}
+
+export interface MediaCharactersAttributes {
+  created: string;
+  updatedAt: string;
+  role: string;
+}
+
+export interface MediaCharactersRelationships {
+  character: Links;
+  media: Links;
+  voices: Links;
 }
 
 export interface MediaAttributes {
