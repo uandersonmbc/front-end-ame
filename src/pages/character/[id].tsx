@@ -15,6 +15,7 @@ import { Character as C } from "types/characters";
 import { useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
 import { RelationshipsData, Media as M } from "types/media";
+import LoadingOverlay from "react-loading-overlay";
 
 interface CharacterProps {
   character: C;
@@ -22,20 +23,30 @@ interface CharacterProps {
 
 export default function Character({ character }: CharacterProps): JSX.Element {
   const [media, setMedia] = useState<Array<M>>([]);
-  const [page, setPage] = useState<number>(0);
+  const [limit, setLimit] = useState<number>(0);
+  const [countMedia, setCountMedia] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+
   useEffect(() => {
     async function getMedia() {
       try {
+        setLoading(true);
         const { data }: AxiosResponse<RelationshipsData> = await axios.get(
-          `/api/characters/${character.id}?limit=${page}`
+          `/api/characters/${character.id}?limit=${limit}`
         );
-        setMedia(data.included);
+
+        if (data.included) {
+          setMedia((state) => [...state, ...data.included]);
+          setCountMedia(data.meta.count);
+        }
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
     getMedia();
-  }, [page, character.id]);
+  }, [limit, character.id]);
 
   return (
     <>
@@ -97,15 +108,12 @@ export default function Character({ character }: CharacterProps): JSX.Element {
 
         <div className={styles.content}>
           <div className={styles.image}>
-            <Image
-              loader={() =>
+            <img
+              src={
                 character.attributes.image?.original ??
                 "https://via.placeholder.com/255x361?text=No+image"
               }
-              src="character.jpg"
               alt={character.attributes.canonicalName}
-              width={255}
-              height={361}
             />
           </div>
           <div className={styles.info}>
@@ -114,11 +122,20 @@ export default function Character({ character }: CharacterProps): JSX.Element {
           </div>
         </div>
 
-        <div className={styles.media}>
-          {media.map((item) => (
-            <Media key={item.id} data={item} />
-          ))}
-        </div>
+        <LoadingOverlay active={loading} spinner text="Buscando os personagens">
+          <div className={styles.media}>
+            {media.map((item) => (
+              <Media key={item.id} data={item} />
+            ))}
+            <div className={styles.loadMore}>
+              {countMedia > limit && (
+                <button onClick={() => setLimit((state) => state + 20)}>
+                  Mais
+                </button>
+              )}
+            </div>
+          </div>
+        </LoadingOverlay>
       </div>
     </>
   );

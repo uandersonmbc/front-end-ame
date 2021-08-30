@@ -4,12 +4,20 @@
   margin-bottom: 20px;
   margin-right: 20px;
   position: relative;
+  border: 1px solid #eaeaea;
 
+  border-radius: 4px;
   .image {
     width: 200px;
+    border-radius: 4px;
+    overflow: hidden;
     img {
       width: 100%;
     }
+  }
+
+  .info {
+    padding: 10px;
   }
 
   .percent {

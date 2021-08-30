@@ -23,7 +23,7 @@ export interface MediaCharactersData {
 export interface Media {
   id: string;
   type: string;
-  link: Links;
+  links: Links;
   attributes: MediaAttributes;
   relationships: MediaRelationships;
 }
@@ -45,7 +45,6 @@ export interface MediaAttributes {
   updatedAt: string;
   slug: string;
   synopsis: string;
-  malId: string;
   description: string;
   coverImageTopOffset: number;
   titles: Object;

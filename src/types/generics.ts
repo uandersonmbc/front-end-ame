@@ -19,11 +19,11 @@ export interface LinksPage {
 }
 
 export interface Image {
-  tiny: string;
-  small: string;
-  medium: string;
-  large: string;
-  original: string;
+  tiny?: string;
+  small?: string;
+  medium?: string;
+  large?: string;
+  original?: string;
   meta: Meta;
 }
 
@@ -32,10 +32,10 @@ export interface Meta {
 }
 
 export interface Dimensions {
-  tiny: Dimension;
-  small: Dimension;
-  medium: Dimension;
-  large: Dimension;
+  tiny?: Dimension;
+  small?: Dimension;
+  medium?: Dimension;
+  large?: Dimension;
 }
 
 export interface Dimension {

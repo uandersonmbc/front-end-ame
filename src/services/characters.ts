@@ -20,7 +20,7 @@ export function getCharacter(
 
 export function getMediaCharacters(
   id: string,
-  offset: number = 0
+  offset: string = "0"
 ): Promise<AxiosResponse<RelationshipsData>> {
   return axios.get(`/characters/${id}/media-characters`, {
     params: {

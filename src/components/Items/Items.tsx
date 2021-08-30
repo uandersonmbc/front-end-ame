@@ -19,15 +19,12 @@ export default memo(function Items({ characters }: Item) {
             <div className={styles.row}>
               <div className={styles.name}>
                 <div>
-                  <Image
-                    loader={() =>
+                  <img
+                    src={
                       item.attributes.image?.original ??
-                      "https://via.placeholder.com/255x361?text=No+image"
+                      "https://via.placeholder.com/58?text=No+image"
                     }
-                    src="item.jpg"
                     alt={item.attributes.name}
-                    width={255}
-                    height={396}
                   />
                 </div>
                 <span>{item.attributes.name}</span>

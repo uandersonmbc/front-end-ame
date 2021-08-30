@@ -47,7 +47,6 @@
         width: 100%;
       }
     }
-
   }
 
   .media {
@@ -55,6 +54,24 @@
     margin-top: 20px;
     display: flex;
     overflow: auto;
-  }
 
+    .loadMore {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      button {
+        background: none;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        margin-left: 5px;
+        background-color: var.$primary-color;
+        color: var.$text-color;
+      }
+
+      button:hover:enabled {
+        background-color: rgba(var.$primary-color, 0.5);
+      }
+    }
+  }
 }

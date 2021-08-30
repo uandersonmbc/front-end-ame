@@ -8,8 +8,8 @@ export default async function characters(
 ) {
   try {
     const id = req.query.id.toString();
-
-    const { data } = await getMediaCharacters(id);
+    const limit = req.query.limit.toString();
+    const { data } = await getMediaCharacters(id, limit);
 
     res.status(200).json(data);
   } catch (error) {
