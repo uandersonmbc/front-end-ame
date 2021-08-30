@@ -1,4 +1,13 @@
-<div align="center" id="top"> 
+<div align="center" id="top">
+
+  ## Página inicial
+  <img src="https://user-images.githubusercontent.com/26174031/131285358-09d85511-56f6-460b-b045-3b3c86d063a3.png" alt="Front End Challenge" />
+  
+  ## Pre-carregamento de informações whatsapp/discord
+
+  <img width="400" src="https://user-images.githubusercontent.com/26174031/131286058-a6cbe6ae-399e-4165-ba9d-0705cf8b2f13.png" alt="whatsapp"/>
+  <img width="400" src="https://user-images.githubusercontent.com/26174031/131286064-ca5ad44e-555c-443e-a6eb-459eaea7892d.png" alt="discord"/>
+  &#xa0;
   <a href="https://front-end-ame.vercel.app/">Demo</a>
 </div>
 
@@ -24,7 +33,7 @@
 
 <h4 align="center"> 
 	🚧  Front End Ame 🚀 Under construction...  🚧
-</h4> 
+</h4>
 
 <hr>
 
@@ -40,10 +49,11 @@
 
 <br>
 
-## :dart: About ##
+## :dart: About
 
+O projeto consiste em fazer uma SPA (Single Page Application) responsiva dividida em duas partes, para mostrar informações sobre os personagens:
 
-## :sparkles: Features ##
+## :sparkles: Features
 
 :heavy_check_mark: Mostra uma lista com os personagens e suas descrições.\
 :heavy_check_mark: A listagem deve ter 10 personagens por página.\
@@ -55,7 +65,7 @@
 :heavy_check_mark: Deve ter pelo menos uma listagem de mídias que o personagem participou, com título e imagem. Você pode adicionar o que mais achar relevante e interessante.\
 :heavy_check_mark: Layout livre. Use a criatividade.
 
-## :rocket: Technologies ##
+## :rocket: Technologies
 
 As seguintes ferramentas foram utilizadas neste projeto:
 
@@ -65,38 +75,39 @@ As seguintes ferramentas foram utilizadas neste projeto:
 
 Para fazer a paginação, foi usado o hook que foi escrito nesse artigo [aqui](https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/)
 
-## :white_check_mark: Requirements ##
+## :white_check_mark: Requirements
 
 Antes de começar :checkered_flag:, você precisa ter o [Git](https://git-scm.com) e [Node](https://nodejs.org/en/) instalados.
 
-## :checkered_flag: Starting ##
+## :checkered_flag: Starting
 
 ```bash
 # Clone this project
-$ git clone https://github.com/uandersonmbc/front-end-ame
+$ git clone https://github.com/uandersonmbc/front-end-challenge
 
 # Access
-$ cd front-end-ame
+$ cd front-end-challenge
 
 # Install dependencies
-$ yarn
+$ yarn 
 
-# Run the project
-$ yarn start
+  or 
 
-# The server will initialize in the <http://localhost:3000>
+$ npm install
 ```
 
 ## Configuração do .env
+
 ```
 NEXTJS_API=https://kitsu.io/api/edge
 
 ```
 
 ## Executar o projeto
+
 ```bash
 # Run the project
-$ yarn dev 
+$ yarn dev
 
   or
 
@@ -105,10 +116,20 @@ $ npm run dev
 # The server will initialize in the <http://localhost:3000>
 ```
 
-## :memo: License ##
+## Executar os testes
+Não foram finalizados, mas configurei o ambiente de teste.
+```bash
+$ yarn test 
+
+  or
+
+$ npm run test
+
+```
+
+## :memo: License
 
 This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
-
 
 Made with :heart: by <a href="https://github.com/uandersonmbc" target="_blank">Uanderson Nunes</a>
 
