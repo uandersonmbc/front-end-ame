@@ -1,5 +1,5 @@
-import { MediaData } from "types/characters";
+import { Media } from "types/media";
 
 export interface MediaProps {
-  data: MediaData;
+  data: Media;
 }

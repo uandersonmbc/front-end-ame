@@ -5,14 +5,6 @@ export interface CharacterDataList {
   links: LinksPage;
 }
 
-export interface MediaData {
-  id: string;
-  type: string;
-  name: string;
-  posterImage: Image;
-  averageRating: string;
-}
-
 export interface CharacterData {
   data: Character;
 }

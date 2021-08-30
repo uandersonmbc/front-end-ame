@@ -1,4 +1,6 @@
 import Head from "next/head";
+import Image from "next/image";
+
 import { GetStaticProps, GetStaticPropsContext, GetStaticPaths } from "next";
 import ReactHtmlParser from "react-html-parser";
 
@@ -9,29 +11,31 @@ import styles from "styles/character.module.scss";
 
 import { Header, Media } from "components";
 
-import { Character as C, MediaData } from "types/characters";
+import { Character as C } from "types/characters";
 import { useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
+import { RelationshipsData, Media as M } from "types/media";
 
 interface CharacterProps {
   character: C;
 }
 
 export default function Character({ character }: CharacterProps): JSX.Element {
-  const [media, setMedia] = useState<Array<MediaData>>([]);
+  const [media, setMedia] = useState<Array<M>>([]);
+  const [page, setPage] = useState<number>(0);
   useEffect(() => {
     async function getMedia() {
       try {
-        const { data }: AxiosResponse<Array<MediaData>> = await axios.get(
-          `/api/characters/${character.id}`
+        const { data }: AxiosResponse<RelationshipsData> = await axios.get(
+          `/api/characters/${character.id}?limit=${page}`
         );
-        setMedia(data);
+        setMedia(data.included);
       } catch (error) {
         console.log(error);
       }
     }
     getMedia();
-  }, [character]);
+  }, [page, character.id]);
 
   return (
     <>
@@ -46,7 +50,10 @@ export default function Character({ character }: CharacterProps): JSX.Element {
 
         <meta
           property="og:image"
-          content={character.attributes.image.original}
+          content={
+            character.attributes.image?.original ??
+            "https://via.placeholder.com/255x361?text=No+image"
+          }
         />
         <meta property="og:type" content="website" />
         <meta
@@ -64,7 +71,10 @@ export default function Character({ character }: CharacterProps): JSX.Element {
 
         <meta
           property="twitter:image"
-          content={character.attributes.image.original}
+          content={
+            character.attributes.image?.original ??
+            "https://via.placeholder.com/255x361?text=No+image"
+          }
         />
         <meta property="twitter:image:width" content="780" />
         <meta property="twitter:image:height" content="439" />
@@ -87,9 +97,15 @@ export default function Character({ character }: CharacterProps): JSX.Element {
 
         <div className={styles.content}>
           <div className={styles.image}>
-            <img
-              src={character.attributes.image.original}
+            <Image
+              loader={() =>
+                character.attributes.image?.original ??
+                "https://via.placeholder.com/255x361?text=No+image"
+              }
+              src="character.jpg"
               alt={character.attributes.canonicalName}
+              width={255}
+              height={361}
             />
           </div>
           <div className={styles.info}>

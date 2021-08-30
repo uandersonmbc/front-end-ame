@@ -1,5 +1,7 @@
 import ReactHtmlParser from "react-html-parser";
 import Link from "next/link";
+import Image from "next/image";
+
 import { Item } from "./types";
 import styles from "./styles.module.scss";
 import { memo } from "react";
@@ -17,9 +19,15 @@ export default memo(function Items({ characters }: Item) {
             <div className={styles.row}>
               <div className={styles.name}>
                 <div>
-                  <img
-                    src={item.attributes.image?.original}
+                  <Image
+                    loader={() =>
+                      item.attributes.image?.original ??
+                      "https://via.placeholder.com/255x361?text=No+image"
+                    }
+                    src="item.jpg"
                     alt={item.attributes.name}
+                    width={255}
+                    height={396}
                   />
                 </div>
                 <span>{item.attributes.name}</span>

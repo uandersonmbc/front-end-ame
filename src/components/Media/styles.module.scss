@@ -1,9 +1,17 @@
 .item {
-  width: 284px;
+  width: 200px;
   display: inline-grid;
   margin-bottom: 20px;
   margin-right: 20px;
   position: relative;
+
+  .image {
+    width: 200px;
+    img {
+      width: 100%;
+    }
+  }
+
   .percent {
     position: absolute;
     top: 10px;
@@ -14,10 +22,9 @@
     span {
       color: #fff;
       position: relative;
-      top: -89%;
-      left: 9px;
+      top: -83%;
+      left: 8px;
       font-weight: bold;
     }
   }
 }
-
