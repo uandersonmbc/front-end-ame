@@ -50,7 +50,7 @@ export interface MediaAttributes {
   titles: Object;
   canonicalTitle: string;
   abbreviatedTitles: Array<string>;
-  averageRating: string;
+  averageRating: string | null;
   ratingFrequencies: Object;
   userCount: number;
   favoritesCount: number;

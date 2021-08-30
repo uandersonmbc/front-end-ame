@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 import Media from "./Media";
 
@@ -30,7 +30,7 @@ const data = {
       "Cowboy Bebop Episode 27 Session XX",
       "Cowboy Bebop Session XX: Mish-Mash Blues",
     ],
-    averageRating: "73.9",
+    averageRating: "73.0",
     ratingFrequencies: {
       "2": "9",
       "3": "1",
@@ -230,7 +230,28 @@ const data = {
 };
 
 describe("Media", () => {
-  it("renders without crashing", () => {
+  it("check if the title is the same, check if the anime's note is the same", () => {
     render(<Media data={data} />);
+
+    expect(
+      screen.getByText(data.attributes.canonicalTitle)
+    ).toBeInTheDocument();
+    expect(screen.getByText("7.3")).toBeInTheDocument();
+  });
+
+  it("...", () => {
+    const newData = {
+      ...data,
+      attributes: { ...data.attributes, averageRating: "60", posterImage: {} },
+    };
+    render(<Media data={newData} />);
+  });
+
+  it("...", () => {
+    const newData = {
+      ...data,
+      attributes: { ...data.attributes, averageRating: null, posterImage: {} },
+    };
+    render(<Media data={newData} />);
   });
 });

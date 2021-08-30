@@ -20,20 +20,22 @@ export default memo(function Media({ data }: MediaProps): JSX.Element {
         {data.type && (
           <div className={styles.percent}>
             <CircularProgressbar
-              value={parseFloat(data.attributes.averageRating) || 0}
+              value={parseFloat(data.attributes.averageRating || "0")}
               background
               backgroundPadding={6}
               styles={buildStyles({
                 backgroundColor: "#081c22",
                 pathColor:
-                  parseFloat(data.attributes.averageRating) > 70
+                  parseFloat(data.attributes.averageRating || "0") > 70
                     ? "#20c574"
                     : "#d0d331",
                 trailColor: "transparent",
               })}
             />
             <span>
-              {(parseFloat(data.attributes.averageRating) / 10 || 0).toFixed(1)}
+              {(
+                parseFloat(data.attributes.averageRating || "0") / 10 || 0
+              ).toFixed(1)}
             </span>
           </div>
         )}

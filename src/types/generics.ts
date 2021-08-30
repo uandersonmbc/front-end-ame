@@ -24,7 +24,7 @@ export interface Image {
   medium?: string;
   large?: string;
   original?: string;
-  meta: Meta;
+  meta?: Meta;
 }
 
 export interface Meta {
